@@ -1,0 +1,31 @@
+.row{
+  display: flex;
+  justify-content: space-between;
+  justify-items: center;
+  width: 370px;
+  margin-bottom: 10px;
+}
+.resetvalues{
+  margin: 0;
+}
+.span-completed{
+  width: 20px;
+  cursor: default;
+  display: flex;
+  justify-content: center;
+}
+.span-delete{
+  width: 20px;
+  cursor: default;
+  background-color: red;
+  display: flex;
+  justify-content: center;
+}
+
+.TodoItem-p--complete{
+  text-decoration: line-through;
+}
+
+.Icon-check--active{
+  color: green;
+}
