@@ -1,13 +1,35 @@
 import React from 'react'
+import Box from '@mui/material/Box';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import Divider from '@mui/material/Divider';
+import InboxIcon from '@mui/icons-material/Inbox';
+import DraftsIcon from '@mui/icons-material/Drafts';
+import DoneIcon from '@mui/icons-material/Done';
+import DeleteIcon from '@mui/icons-material/Delete';
 import './TodoItem.css'
 
 function TodoItem(props) {
   return (
-    <li className='row'>
-      <span className={`span-completed ${props.completed && 'Icon-check--active'}`}>√</span>
-      <p className={`resetvalues ${props.completed && 'TodoItem-p--complete'}`}>{props.text}</p>
-      <span className='span-delete'>X</span>
-    </li>
+    <div>
+      <List>
+        <ListItem disablePadding>
+          <ListItemButton>
+            <ListItemIcon>
+              <DoneIcon color={props.completed ? 'success' : ''} />
+            </ListItemIcon>
+            <ListItemText className={`${props.completed && 'TodoItem-p--complete'}`} primary={props.text}/>
+          </ListItemButton>
+          <ListItemIcon>
+            <DeleteIcon sx={{ color: 'red' }} />
+          </ListItemIcon>
+        </ListItem>
+      </List>
+    </div>
+    
   );
 }
 

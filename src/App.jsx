@@ -8,8 +8,9 @@ import { TodoSearch } from './TodoSearch'
 
 const todos = [
   { id: 1, text: 'Cortar cebolla', completed: true },
-  { id: 2, text: 'Tomar el curso de React', completed: true },
-  { id: 3, text: 'Invitarte a salir', completed: false },
+  { id: 2, text: 'Tomar el curso de React', completed: false },
+  { id: 3, text: 'Invitarte a salir a comer', completed: true },
+  { id: 4, text: 'Invitarte a salir a vivir', completed: false },
 ]
 
 function App() {
