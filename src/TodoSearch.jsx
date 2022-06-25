@@ -6,6 +6,10 @@ function TodoSearch(){
         width: '350px'
     };
 
+    const onSearchValueChange = (event) =>{
+        console.log(event.target.value);
+    }
+
     return(
         <div className="search-container">
             {/* <input className="searcher" placeholder="Cebolla" /> */}
@@ -15,6 +19,7 @@ function TodoSearch(){
                     variant="outlined"
                     placeholder="buscame..."
                     fullWidth 
+                    onChange={onSearchValueChange}
                 />
             </div>
         </div>
