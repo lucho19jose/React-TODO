@@ -6,8 +6,10 @@ function TodoSearch(){
         width: '350px'
     };
 
+    const [ searchValue, setSearchValue ] = react.useState('');
+
     const onSearchValueChange = (event) =>{
-        console.log(event.target.value);
+        setSearchValue(event.target.value);
     }
 
     return(
@@ -19,9 +21,11 @@ function TodoSearch(){
                     variant="outlined"
                     placeholder="buscame..."
                     fullWidth 
+                    value={searchValue}
                     onChange={onSearchValueChange}
                 />
             </div>
+            <p>{ searchValue }</p>
         </div>
     );
 }
