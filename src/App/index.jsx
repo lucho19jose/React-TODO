@@ -12,9 +12,17 @@ const defaultTodos = [
 
 
 function App() {
-  const [count, setCount] = useState(0)
+  const localStorageTodos = localStorage.getItem('TODOS_V1');
 
-  const [todos, setTodos] = useState(defaultTodos);
+  let parsedTodos;
+  if(!localStorageTodos){
+    localStorage.setItem('TODOS_V1', JSON.stringify(defaultTodos));
+    parsedTodos = defaultTodos;
+  }else{
+    parsedTodos = JSON.parse(localStorageTodos);
+  }
+
+  const [todos, setTodos] = useState(parsedTodos);
 
   const [ searchValue, setSearchValue ] = react.useState('');
 
@@ -25,19 +33,24 @@ function App() {
     return todo.text.toLowerCase().includes(searchValue.toLowerCase());
   });
 
+  const saveTodos = (newTodos) => {
+    localStorage.setItem('TODOS_V1', JSON.stringify(newTodos));
+    setTodos(newTodos);
+  }
+
   const onCompleteTodo = (id) => {
-    setTodos(
-      todos.map(todo => {
-        if (todo.id === id) {
-          todo.completed = !todo.completed;
-        }
-        return todo;
-      }),
-    );
+    const newTodos = todos.map(todo => {
+      if (todo.id === id) {
+        todo.completed = !todo.completed;
+      }
+      return todo;
+    })
+    saveTodos(newTodos);
   }
 
   const onDeleteTodo = (id) => {
-    setTodos(todos.filter(todo => todo.id !== id));
+    const newTodos = todos.filter(todo => todo.id !== id);
+    saveTodos(newTodos);
   }
 
   return (
