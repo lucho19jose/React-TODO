@@ -13,24 +13,17 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import './TodoItem.css'
 
 function TodoItem(props) {
-  const onComplete = () => {
-      console.log("task completed!");
-  }
-
-  const onDelete = () => {
-      console.log("task Deleted!");
-  }
   return (
     <div>
       <List>
         <ListItem disablePadding>
-          <ListItemIcon onClick={onComplete}>
+          <ListItemIcon onClick={props.onComplete}>
             <DoneIcon color={props.completed ? 'success' : ''} />
           </ListItemIcon>
           <ListItemButton>
             <ListItemText className={`${props.completed && 'TodoItem-p--complete'}`} primary={props.text}/>
           </ListItemButton>
-          <ListItemIcon onClick={onDelete}>
+          <ListItemIcon onClick={props.onDelete}>
             <DeleteIcon sx={{ color: 'red' }} />
           </ListItemIcon>
         </ListItem>

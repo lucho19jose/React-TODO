@@ -1,12 +1,10 @@
 import react from "react";
 import TextField from '@mui/material/TextField';
 import './TodoSearch.css';
-function TodoSearch(){
+function TodoSearch({searchValue, setSearchValue}) {
     const divStyle = {
         width: '350px'
     };
-
-    const [ searchValue, setSearchValue ] = react.useState('');
 
     const onSearchValueChange = (event) =>{
         setSearchValue(event.target.value);
@@ -25,7 +23,6 @@ function TodoSearch(){
                     onChange={onSearchValueChange}
                 />
             </div>
-            <p>{ searchValue }</p>
         </div>
     );
 }
