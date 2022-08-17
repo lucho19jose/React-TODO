@@ -10,19 +10,35 @@ const defaultTodos = [
   { id: 4, text: 'Invitarte a salir a vivir', completed: false },
 ]
 
+function useLocalStorage(itemName, initialValue) {
+  const localStorageItem = localStorage.getItem(itemName);
+  let parsedItem;
+  
+  if (!localStorageItem) {
+    localStorage.setItem(itemName, JSON.stringify(initialValue));
+    parsedItem = initialValue;
+  } else {
+    parsedItem = JSON.parse(localStorageItem);
+  }
+  
+  const [item, setItem] = react.useState(parsedItem);
+
+  const saveItem = (newItem) => {
+    const stringifiedItem = JSON.stringify(newItem);
+    localStorage.setItem(itemName, stringifiedItem);
+    setItem(newItem);
+  };
+
+  return [
+    item,
+    saveItem,
+  ];
+}
+
 
 function App() {
-  const localStorageTodos = localStorage.getItem('TODOS_V1');
 
-  let parsedTodos;
-  if(!localStorageTodos){
-    localStorage.setItem('TODOS_V1', JSON.stringify(defaultTodos));
-    parsedTodos = defaultTodos;
-  }else{
-    parsedTodos = JSON.parse(localStorageTodos);
-  }
-
-  const [todos, setTodos] = useState(parsedTodos);
+  const [todos, saveTodos] = useLocalStorage('TODOS_V1', []);
 
   const [ searchValue, setSearchValue ] = react.useState('');
 
@@ -32,11 +48,6 @@ function App() {
   const filteredTodos = todos.filter(todo => {
     return todo.text.toLowerCase().includes(searchValue.toLowerCase());
   });
-
-  const saveTodos = (newTodos) => {
-    localStorage.setItem('TODOS_V1', JSON.stringify(newTodos));
-    setTodos(newTodos);
-  }
 
   const onCompleteTodo = (id) => {
     const newTodos = todos.map(todo => {
