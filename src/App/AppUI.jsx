@@ -7,6 +7,8 @@ import { TodoList } from '../TodoList'
 import { TodoSearch } from '../TodoSearch'
 
 function AppUI({
+  loading, 
+  error,
   completedTodos,
   totalTodos,
   searchValue,
@@ -26,6 +28,10 @@ function AppUI({
         setSearchValue={setSearchValue}
       />
       <TodoList>
+        {error && <div>hubo un error...</div>}
+        {loading && <p>Loading...</p>}
+        {!loading &&  filteredTodos.length === 0 && <div>No hay todos, Crea tu primer TODO</div>}  
+
         {filteredTodos.map(todo => (
           <TodoItem 
             key={todo.id} 
