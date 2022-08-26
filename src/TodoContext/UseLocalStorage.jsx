@@ -11,6 +11,8 @@ function useLocalStorage(itemName, initialValue) {
       let parsedItem;
       
       if (!localStorageItem) {
+        console.log("ther isn't localstorage");
+        console.log("initial value", initialValue);
         localStorage.setItem(itemName, JSON.stringify(initialValue));
         parsedItem = initialValue;
       } else {
@@ -36,7 +38,6 @@ function useLocalStorage(itemName, initialValue) {
     item,
     saveItem,
     loading,
-    error,
   }
 }
 

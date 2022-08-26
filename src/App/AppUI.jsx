@@ -6,23 +6,24 @@ import { TodoItem } from '../TodoItem'
 import { TodoList } from '../TodoList'
 import { TodoSearch } from '../TodoSearch'
 import { TodoContext } from '../TodoContext'
-//import { Modal } from '../Modal'
+import { ModalUI } from '../Modal'
+import { TodoForm } from '../TodoForm'
 
 function AppUI(){
 
   const { 
-    error,
     loading,
     filteredTodos,
     onCompleteTodo,
-    onDeleteTodo
+    onDeleteTodo,
+    openModal,
+    setOpenModal
   } = React.useContext(TodoContext);
   return (
     <>
       <TodoCounter/>
       <TodoSearch/>
         <TodoList>
-          {error && <div>hubo un error...</div>}
           {loading && <p>Loading...</p>}
           {!loading &&  filteredTodos.length === 0 && <div>No hay todos, Crea tu primer TODO</div>}  
   
@@ -36,9 +37,13 @@ function AppUI(){
             />
           ))}
         </TodoList>
-        {/* <Modal>
-          <p>Teletransportacion</p>
-        </Modal> */}
+        {
+          openModal && (
+            <ModalUI>
+              <TodoForm/>
+            </ModalUI>
+          )
+        }
       <CreateTodoButtom></CreateTodoButtom>
     </>
   );
