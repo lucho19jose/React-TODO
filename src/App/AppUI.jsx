@@ -1,4 +1,4 @@
-import react from "react";
+import React from "react";
 
 import { CreateTodoButtom } from '../CreateTodoButton'
 import { TodoCounter } from '../TodoCounter'
@@ -6,6 +6,7 @@ import { TodoItem } from '../TodoItem'
 import { TodoList } from '../TodoList'
 import { TodoSearch } from '../TodoSearch'
 import { TodoContext } from '../TodoContext'
+//import { Modal } from '../Modal'
 
 function AppUI(){
 
@@ -15,7 +16,7 @@ function AppUI(){
     filteredTodos,
     onCompleteTodo,
     onDeleteTodo
-  } = react.useContext(TodoContext);
+  } = React.useContext(TodoContext);
   return (
     <>
       <TodoCounter/>
@@ -35,6 +36,9 @@ function AppUI(){
             />
           ))}
         </TodoList>
+        {/* <Modal>
+          <p>Teletransportacion</p>
+        </Modal> */}
       <CreateTodoButtom></CreateTodoButtom>
     </>
   );
