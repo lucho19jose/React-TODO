@@ -5,43 +5,39 @@ import { TodoCounter } from '../TodoCounter'
 import { TodoItem } from '../TodoItem'
 import { TodoList } from '../TodoList'
 import { TodoSearch } from '../TodoSearch'
+import { TodoContext } from '../TodoConntext'
 
-function AppUI({
-  loading, 
-  error,
-  completedTodos,
-  totalTodos,
-  searchValue,
-  setSearchValue,
-  filteredTodos,
-  onCompleteTodo,
-  onDeleteTodo,
-}){
+function AppUI(){
   return (
     <>
-      <TodoCounter
-        completedTodos={completedTodos}
-        totalTodos={totalTodos}
-      />
-      <TodoSearch
-        searchValue={searchValue}
-        setSearchValue={setSearchValue}
-      />
-      <TodoList>
-        {error && <div>hubo un error...</div>}
-        {loading && <p>Loading...</p>}
-        {!loading &&  filteredTodos.length === 0 && <div>No hay todos, Crea tu primer TODO</div>}  
+      <TodoCounter/>
+      <TodoSearch/>
 
-        {filteredTodos.map(todo => (
-          <TodoItem 
-            key={todo.id} 
-            text={todo.text}
-            completed={todo.completed}
-            onComplete={()=>onCompleteTodo(todo.id)}
-            onDelete={()=>onDeleteTodo(todo.id)}
-          />
-        ))}
-      </TodoList>
+      <TodoContext.Consumer>
+        {({ 
+          error,
+          loading,
+          filteredTodos,
+          onCompleteTodo,
+          onDeleteTodo
+        }) => (
+          <TodoList>
+            {error && <div>hubo un error...</div>}
+            {loading && <p>Loading...</p>}
+            {!loading &&  filteredTodos.length === 0 && <div>No hay todos, Crea tu primer TODO</div>}  
+    
+            {filteredTodos.map(todo => (
+              <TodoItem 
+                key={todo.id} 
+                text={todo.text}
+                completed={todo.completed}
+                onComplete={()=>onCompleteTodo(todo.id)}
+                onDelete={()=>onDeleteTodo(todo.id)}
+              />
+            ))}
+          </TodoList>
+        )}
+      </TodoContext.Consumer>
       <CreateTodoButtom></CreateTodoButtom>
     </>
   );

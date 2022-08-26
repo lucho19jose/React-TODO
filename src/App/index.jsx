@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import react from "react";
 import { AppUI } from './AppUI'
+import { TodoProvider } from '../TodoConntext'
 //import './App.css'
 
 const defaultTodos = [
@@ -10,94 +11,12 @@ const defaultTodos = [
   { id: 4, text: 'Invitarte a salir a vivir', completed: false },
 ]
 
-function useLocalStorage(itemName, initialValue) {
-  const [loading, setLoading] = react.useState(true);
-  const [error, setError] = react.useState(false);
-  const [item, setItem] = react.useState(initialValue);
-
-  react.useEffect(() => {
-  setTimeout(() => {
-    try {
-      const localStorageItem = localStorage.getItem(itemName);
-      let parsedItem;
-      
-      if (!localStorageItem) {
-        localStorage.setItem(itemName, JSON.stringify(initialValue));
-        parsedItem = initialValue;
-      } else {
-        parsedItem = JSON.parse(localStorageItem);
-      }
-      
-      setItem(parsedItem);
-      setLoading(false);
-    } catch (error) {
-      setError(true);
-    }
-    
-  }, 1000)});
-  
-
-  const saveItem = (newItem) => {
-    const stringifiedItem = JSON.stringify(newItem);
-    localStorage.setItem(itemName, stringifiedItem);
-    setItem(newItem);
-  };
-
-  return {
-    item,
-    saveItem,
-    loading,
-    error,
-  }
-}
-
-
 function App() {
 
-  const {
-    item: todos,
-    saveItem: saveTodos,
-    loading,
-    error,
-  } = useLocalStorage('TODOS_V1', []);
-
-
-  const [ searchValue, setSearchValue ] = react.useState('');
-
-  const completedTodos = todos.filter(todo => todo.completed).length;
-  const totalTodos = todos.length;
-
-  const filteredTodos = todos.filter(todo => {
-    return todo.text.toLowerCase().includes(searchValue.toLowerCase());
-  });
-
-  const onCompleteTodo = (id) => {
-    const newTodos = todos.map(todo => {
-      if (todo.id === id) {
-        todo.completed = !todo.completed;
-      }
-      return todo;
-    })
-    saveTodos(newTodos);
-  }
-
-  const onDeleteTodo = (id) => {
-    const newTodos = todos.filter(todo => todo.id !== id);
-    saveTodos(newTodos);
-  }
-
   return (
-    <AppUI
-      loading={loading}
-      error={error}
-      completedTodos={completedTodos}
-      totalTodos={totalTodos}
-      searchValue={searchValue}
-      setSearchValue={setSearchValue}
-      filteredTodos={filteredTodos}
-      onCompleteTodo={onCompleteTodo}
-      onDeleteTodo={onDeleteTodo}
-    />
+    <TodoProvider>
+      <AppUI/>
+    </TodoProvider>
   )
 }
 
