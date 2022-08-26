@@ -1,7 +1,11 @@
 import react from "react";
 import TextField from '@mui/material/TextField';
 import './TodoSearch.css';
-function TodoSearch({searchValue, setSearchValue}) {
+import { TodoContext } from '../TodoContext'
+function TodoSearch() {
+
+    const { searchValue, setSearchValue } = react.useContext(TodoContext);
+
     const divStyle = {
         width: '350px'
     };

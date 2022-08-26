@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import react from "react";
 import { AppUI } from './AppUI'
-import { TodoProvider } from '../TodoConntext'
+import { TodoProvider } from '../TodoContext'
 //import './App.css'
 
 const defaultTodos = [
