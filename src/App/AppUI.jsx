@@ -12,6 +12,7 @@ import { TodoForm } from '../TodoForm'
 function AppUI(){
 
   const { 
+    error,
     loading,
     filteredTodos,
     onCompleteTodo,

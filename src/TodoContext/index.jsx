@@ -1,4 +1,5 @@
 import React from 'react'
+import { TodoSearch } from '../TodoSearch';
 import { useLocalStorage } from './UseLocalStorage';
 const TodoContext = React.createContext();
 
@@ -7,6 +8,7 @@ function TodoProvider(props) {
     item: todos,
     saveItem: saveTodos,
     loading,
+    error
   } = useLocalStorage('TODOS_V1', []);
 
 
@@ -20,6 +22,16 @@ function TodoProvider(props) {
     return todo.text.toLowerCase().includes(searchValue.toLowerCase());
   });
 
+  const addNewTodo = (newtodo) => {
+    const newTodos = [...todos];
+    newTodos.push({
+      id: todos.length+5,
+      completed: false,
+      text: newtodo
+    })
+    saveTodos(newTodos);
+  }
+
   const onCompleteTodo = (id) => {
     const newTodos = todos.map(todo => {
       if (todo.id === id) {
@@ -29,14 +41,6 @@ function TodoProvider(props) {
     })
     saveTodos(newTodos);
   }
-  
-  const addNewTodo = (newtodo) => {
-    console.log("new Todo", newtodo);
-    console.log("currenttodos", todos);
-    const newTodos = todos.push(newtodo);
-    console.log("newTodos", newTodos);
-    saveTodos(newTodos);
-  }
 
   const onDeleteTodo = (id) => {
     const newTodos = todos.filter(todo => todo.id !== id);
@@ -44,6 +48,7 @@ function TodoProvider(props) {
   }
   return (
     <TodoContext.Provider value={{
+      error,
       loading,
       completedTodos,
       totalTodos,
