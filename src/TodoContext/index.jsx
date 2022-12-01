@@ -25,7 +25,7 @@ function TodoProvider(props) {
   const addNewTodo = (newtodo) => {
     const newTodos = [...todos];
     newTodos.push({
-      id: todos.length+5,
+      id: generateoneID(),
       completed: false,
       text: newtodo
     })
@@ -46,6 +46,19 @@ function TodoProvider(props) {
     const newTodos = todos.filter(todo => todo.id !== id);
     saveTodos(newTodos);
   }
+
+  const generateoneID = () => {
+    let i = todos.length;
+    while(true){
+      if(todos.filter(el => el.id == i).length < 1){
+        break;
+      }
+      i++;
+    }
+    console.log("Generating ID", i)
+    return i;
+  }
+
   return (
     <TodoContext.Provider value={{
       error,

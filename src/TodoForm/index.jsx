@@ -38,6 +38,7 @@ function TodoForm() {
             onChange={handleChange}
             style={{ width: '100%' }}
             placeholder="algo que no puede explicar..."
+            inputRef={input => input && input.focus()}
           />
       </div>
       <div className='btns'>
