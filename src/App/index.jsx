@@ -12,6 +12,10 @@ import { ModalUI } from '../Modal'
 import { TodoForm } from '../TodoForm'
 import { TodoHeader } from '../TodoHeader'
 
+import TodosError from '../TodosError'
+import TodosLoading from '../TodosLoading'
+import EmptyTodos from '../EmptyTodos'
+
 function App() {
   const { 
     error,
@@ -31,43 +35,60 @@ function App() {
   
   return (
     <>
-    <TodoHeader>
-      <TodoCounter
-        totalTodos={totalTodos}
-        completedTodos={completedTodos}
+      <TodoHeader>
+        <TodoCounter
+          totalTodos={totalTodos}
+          completedTodos={completedTodos}
+        />
+        <TodoSearch
+          searchValue={searchValue}
+          setSearchValue={setSearchValue}
+        />
+      </TodoHeader>
+      <TodoList
+        error={error}
+        loading={loading}
+        filteredTodos={filteredTodos}
+        onError={() => <TodosError />}
+        onLoading={() => <TodosLoading />}
+        onEmptyTodos={() => <EmptyTodos />}
+        render={todo => (
+          <TodoItem
+            key={todo.id}
+            text={todo.text}
+            completed={todo.completed}
+            onComplete={() => onCompleteTodo(todo.id)}
+            onDelete={() => onDeleteTodo(todo.id)}
+          />
+        )}
       />
-      <TodoSearch
-        searchValue={searchValue}
-        setSearchValue={setSearchValue}
-      />
-    </TodoHeader>
-        <TodoList>
-          {loading && <p>Loading...</p>}
-          {!loading &&  filteredTodos.length === 0 && <div>No hay todos, Crea tu primer TODO</div>}  
-  
-          {filteredTodos.map(todo => (
-            <TodoItem 
-              key={todo.id} 
-              text={todo.text}
-              completed={todo.completed}
-              onComplete={()=>onCompleteTodo(todo.id)}
-              onDelete={()=>onDeleteTodo(todo.id)}
+      {/* <TodoList>
+        {loading && <p>Loading...</p>}
+        {!loading &&  filteredTodos.length === 0 && <div>No hay todos, Crea tu primer TODO</div>}  
+
+        {filteredTodos.map(todo => (
+          <TodoItem 
+            key={todo.id} 
+            text={todo.text}
+            completed={todo.completed}
+            onComplete={()=>onCompleteTodo(todo.id)}
+            onDelete={()=>onDeleteTodo(todo.id)}
+          />
+        ))}
+      </TodoList> */}
+      {
+        openModal && (
+          <ModalUI
+          openModal={openModal}
+          setOpenModal={setOpenModal}
+          >
+            <TodoForm
+              addNewTodo={addNewTodo}
+              setOpenModal={setOpenModal}
             />
-          ))}
-        </TodoList>
-        {
-          openModal && (
-            <ModalUI
-            openModal={openModal}
-            setOpenModal={setOpenModal}
-            >
-              <TodoForm
-                addNewTodo={addNewTodo}
-                setOpenModal={setOpenModal}
-              />
-            </ModalUI>
-          )
-        }
+          </ModalUI>
+        )
+      }
       <CreateTodoButtom
         openModal ={openModal}
         setOpenModal={setOpenModal}

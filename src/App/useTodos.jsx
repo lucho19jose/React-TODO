@@ -43,6 +43,7 @@ function useTodos() {
   const onDeleteTodo = (id) => {
     const newTodos = todos.filter(todo => todo.id !== id);
     saveTodos(newTodos);
+    console.log("new todos", newTodos);
   }
 
   const generateoneID = () => {
