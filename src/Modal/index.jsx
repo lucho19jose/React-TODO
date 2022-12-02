@@ -4,7 +4,6 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import { TodoContext } from '../TodoContext'
 //import Button from '@mui/material/Button';
 
 
@@ -20,9 +19,7 @@ const style = {
   p: 4,
 };
 
-function ModalUI({ children }) {
-  const { openModal, setOpenModal } = React.useContext(TodoContext);
-  const [ open, setOpen ] = React.useState(false);
+function ModalUI({ children, openModal, setOpenModal }) {
   const handleClose = () => setOpenModal(false);
 
   return ReactDOM.createPortal(

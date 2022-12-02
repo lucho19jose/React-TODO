@@ -3,11 +3,8 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import './todoForm.css'
-import { TodoContext } from '../TodoContext'
 
-
-function TodoForm() {
-  const { addNewTodo, setOpenModal } = React.useContext(TodoContext);
+function TodoForm({ addNewTodo, setOpenModal }) {
   
   const [valueTodo, setValueTodo] = React.useState('');
 
@@ -16,7 +13,7 @@ function TodoForm() {
   };
 
   const handleChange = (event) => {
-    console.log(event.target.value);
+    //console.log(event.target.value);
     setValueTodo(event.target.value);
   };
 

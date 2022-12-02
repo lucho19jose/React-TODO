@@ -1,9 +1,7 @@
 import React from 'react'
-import { TodoSearch } from '../TodoSearch';
 import { useLocalStorage } from './UseLocalStorage';
-const TodoContext = React.createContext();
 
-function TodoProvider(props) {
+function useTodos() {
   const {
     item: todos,
     saveItem: saveTodos,
@@ -24,7 +22,7 @@ function TodoProvider(props) {
 
   const addNewTodo = (newtodo) => {
     const newTodos = [...todos];
-    newTodos.push({
+    newTodos.unshift({
       id: generateoneID(),
       completed: false,
       text: newtodo
@@ -55,12 +53,12 @@ function TodoProvider(props) {
       }
       i++;
     }
-    console.log("Generating ID", i)
+    //console.log("Generating ID", i)
     return i;
   }
 
   return (
-    <TodoContext.Provider value={{
+    {
       error,
       loading,
       completedTodos,
@@ -73,10 +71,8 @@ function TodoProvider(props) {
       openModal,
       setOpenModal,
       addNewTodo
-    }}>
-      { props.children }
-    </TodoContext.Provider>
+    }
   );
 }
 
-export { TodoContext, TodoProvider }
+export { useTodos }
