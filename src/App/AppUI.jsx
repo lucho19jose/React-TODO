@@ -8,6 +8,7 @@ import { TodoSearch } from '../TodoSearch'
 import { TodoContext } from '../TodoContext'
 import { ModalUI } from '../Modal'
 import { TodoForm } from '../TodoForm'
+import { TodoHeader } from '../TodoHeader'
 
 function AppUI(){
 
@@ -18,12 +19,24 @@ function AppUI(){
     onCompleteTodo,
     onDeleteTodo,
     openModal,
-    setOpenModal
+    setOpenModal,
+    completedTodos, 
+    totalTodos,
+    searchValue,
+    setSearchValue
   } = React.useContext(TodoContext);
   return (
     <>
-      <TodoCounter/>
-      <TodoSearch/>
+    <TodoHeader>
+      <TodoCounter
+        totalTodos={totalTodos}
+        completedTodos={completedTodos}
+      />
+      <TodoSearch
+        searchValue={searchValue}
+        setSearchValue={setSearchValue}
+      />
+    </TodoHeader>
         <TodoList>
           {loading && <p>Loading...</p>}
           {!loading &&  filteredTodos.length === 0 && <div>No hay todos, Crea tu primer TODO</div>}  
